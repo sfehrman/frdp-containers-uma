@@ -1,0 +1,135 @@
+{
+   "comment": "Configuration for the UMA Reference Implementation",
+   "rs": {
+      "id": "UMA-RS",
+      "comment": "Resource Server, 'rs.id' MUST MATCH 'rs.oauth2.client.id'",
+      "headers": {
+         "ssotoken": "X-FRDP-SSOToken",
+         "rpt": "X-FRDP-RPT"
+      },
+      "nosql": {
+         "comment": "No SQL Database (MongoDB)",
+         "host": "db.example.com",
+         "port": "27017",
+         "authen": {
+            "database": "resource-server",
+            "user": "resourceadmin",
+            "password": "password"
+         },
+         "database": "resource-server",
+         "collections": {
+            "credentials": {
+               "name": "credentials"
+            },
+            "resources": {
+               "name": "resources"
+            }
+         }
+      },
+      "oauth2": {
+         "scopes": "uma_protection",
+         "client": {
+            "id": "UMA-RS",
+            "secret": "password",
+            "redirect": "http://rs.example.com/resource-server"
+         }
+      },
+      "credential": {
+         "categories": {
+            "pat": {
+               "comment": "UMA Protection API Token",
+               "id": "uma_pat"
+            },
+            "sso": {
+               "comment": "AM SSO Session Token",
+               "id": "sso_session"
+            }
+         }
+      },
+      "endpoints": {
+        "manage": {
+          "resources": "manage/resources",
+          "requests": "manage/requests",
+          "subjects": "manage/subjects"
+        },
+        "share": {
+          "resources": "share/resources",
+          "owners": "share/owners",
+          "withme": "share/withme"
+        }
+      }
+   },
+   "as": {
+      "comment": "Authorization Server",
+      "cookie": "iPlanetDirectoryPro",
+      "connect": {
+         "protocol": "http",
+         "host": "as.example.com",
+         "port": "8080",
+         "path": "am"
+      },
+      "admin": {
+         "user": "amadmin",
+         "password": "password"
+      },
+      "authenticate": {
+         "headers": {
+            "user": "X-OpenAM-Username",
+            "password": "X-OpenAM-Password"
+         },
+         "path": "json/realms/root/authenticate",
+         "accept-api-version": "resource=2.0,protocol=1.0"
+      },
+      "sessions": {
+         "path": "json/realms/root/sessions",
+         "accept-api-version": "resource=2.1,protocol=1.0"
+      },
+      "oauth2": {
+         "path": "oauth2/realms/root",
+         "authorize": {
+            "path": "oauth2/realms/root/authorize",
+            "accept-api-version": "resource=2.0,protocol=1.0"
+         },
+         "access_token": {
+            "path": "oauth2/realms/root/access_token",
+            "accept-api-version": "resource=2.0,protocol=1.0"
+         },
+         "introspect": {
+            "path": "oauth2/realms/root/introspect",
+            "accept-api-version": "resource=2.0,protocol=1.0"
+         },
+         "tokeninfo": {
+            "path": "oauth2/realms/root/tokeninfo",
+            "accept-api-version": "resource=2.0,protocol=1.0"
+         }
+      },
+      "uma": {
+         "path": "uma/realms/root",
+         "well_known": {
+            "path": "uma/realms/root/.well-known/uma2-configuration"
+         },
+         "resource_set": {
+            "path": "uma/realms/root/resource_set"
+         },
+         "permission_request": {
+            "path": "uma/realms/root/permission_request"
+         },
+         "policies": {
+            "path": "json/realms/root/users/__owner__/uma/policies",
+            "accept-api-version": "resource=1.0"
+         },
+         "pendingrequests": {
+            "path": "json/realms/root/users/__owner__/uma/pendingrequests",
+            "accept-api-version": "protocol=1.0,resource=1.0",
+            "queryfilter": "true",
+            "sortkeys": "user"
+         },
+         "sharedwithme": {
+            "path": "json/realms/root/users/__owner__/oauth2/resources/sets",
+            "accept-api-version": "protocol=1.0,resource=1.0",
+            "queryfilter": "!%20resourceOwnerId%20eq%20%22__owner__%22",
+            "sortkeys": "name"
+         }
+      }
+   }
+}
