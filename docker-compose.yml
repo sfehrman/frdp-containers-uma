@@ -13,11 +13,8 @@ services:
       context: "./containers/auth-server/docker"
       dockerfile: "Dockerfile"
       args:
-        - AM_HOST=${AM_HOST}
-        - AM_PASSWORD=${AM_PASSWORD}
-    environment: 
-      - AM_HOST=${AM_HOST}
-      - AM_PASSWORD=${AM_PASSWORD}
+        - AM_HOST=as.example.com
+        - AM_PASSWORD=password
     ports:
       - "8080:8080"
     hostname: "as"

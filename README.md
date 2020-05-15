@@ -1,6 +1,6 @@
 # frdp-containers-uma
 
-ForgeRock Demonstration Platform (FRDP) : **UMA Containers** : Is a project that provides a *Ready-2-Run* environment for testing the User-Managed Access (UMA) Reference Implementation.  The project requires [`docker` and `docker-compose`](http://docs.docker.com) technologies.  The [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/) was used for this project.
+ForgeRock Demonstration Platform (FRDP) : **UMA Containers** : Is a project that provides a *Ready-2-Run* environment for testing the User-Managed Access (UMA) Reference Implementation.  The project requires [`docker` and `docker-compose`](http://docs.docker.com) technologies.  The [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/) was used to develop this project.
 
 `git clone https://github.com/ForgeRock/frdp-containers-uma.git`
 
@@ -38,7 +38,7 @@ Copy the `openam/AM-6.5.2.x.war` file to: \
 
 ## hostnames
 
-You must add the following aliases to the `/etc/hosts` file entry: `127.0.0.1   localhost`
+You must add the following aliases to the `/etc/hosts` file for `localhost`
 - `as.example.com`
 - `rs.example.com`
 
@@ -47,34 +47,14 @@ You must add the following aliases to the `/etc/hosts` file entry: `127.0.0.1   
 ```bash
 sudo vi /etc/hosts
 ```
-Change the `127.0.0.1` line: \
-**BEFORE**
-```bash
-127.0.0.1       localhost
-```
-**AFTER**
-```bash
-127.0.0.1       localhost as.example.com rs.example.com
-```
-## Environment variables
-
-The following environment variable are used and **must** be set:
-
-- `AM_HOST`
-- `AM_PASSWORD`
-
-Open a terminal and run the following commands:
-
-```bash
-export AM_HOST=as.example.com
-export AM_PASSWORD=password
-```
+ - **BEFORE**: \
+`127.0.0.1       localhost`
+- **AFTER**: \
+`127.0.0.1       localhost as.example.com rs.example.com`
 
 # Run
 
-Make sure your terminal session has the environment variables set *(see above)*
-
-Use the `docker-compose` command the run Docker containers:
+Use the `docker-compose` command build and run the Docker containers:
 
 ```bash
 docker-compose up --build
@@ -87,8 +67,6 @@ docker-compose up --build
 After the *build* process is complete, check that the containers are running.  Open another terminal and run `docker ps`:
 
 ```bash
-docker ps
-
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
 55b21cf3050c        uma-rs              "catalina.sh run"        29 seconds ago      Up 28 seconds       0.0.0.0:8090->8080/tcp     uma-rs
 3024a33fab15        uma-cs              "catalina.sh run"        30 seconds ago      Up 29 seconds       0.0.0.0:8085->8080/tcp     uma-cs
@@ -97,7 +75,7 @@ be18f3fcf73f        uma-db              "docker-entrypoint.s…"   30 seconds ag
 ```
 ## Authorization Server
 
-Log into the Authorization Server as the two test users. Open browser and access ... `http://as.example.com/8080/am`
+Log into the Authorization Server as the two test users. Open a web browser and access ... `http://as.example.com/8080/am`
 
 | User | Password | First name | Last name | UMA operations |
 | ---- | -------- | ---------- | --------- | -------------- |
@@ -111,17 +89,19 @@ Log into the Authorization Server as the two test users. Open browser and access
 **My Resource** displays the user's registered UMA resources \
 **Shared with Me** displays resource's the user can access
 
+**Note:** You will not see any UMA resources until they are registered and have a policy.
+
 # Testing
 
 To test the UMA environment, [**postman**](https://www.postman.com/downloads/) collections have been provided.  Start `postman` and load the *environment* json file an the two *collection* json files:
 
-- `postman/RS.postman_environment,json`
+- `postman/RS.postman_environment.json`
 - `postman/RO.postman_collection.json`
 - `postman/RqP.postman_collection.json`
 
-See the following instructions for **Resource Owner** and **Requesting Party** use cases.  Note: the use case instructions reference the use of *default* `postman` files ... skip this step, use the `postman` files in this project ... the environment has been pre-configured.
+See the following instructions for **Resource Owner** and **Requesting Party** use cases.  Note: the use case instructions reference using *default* `postman` files ... skip this step, use the `postman` files in this project ... the environment has been pre-configured.
 
-- [Resoure Owner](https://github.com/ForgeRock/frdp-uma-resource-server/blob/master/testing/RO/README.md)
+- [Resource Owner](https://github.com/ForgeRock/frdp-uma-resource-server/blob/master/testing/RO/README.md)
 - [Requesting Party](https://github.com/ForgeRock/frdp-uma-resource-server/blob/master/testing/RqP/README.md)
 
 # Reference
@@ -131,8 +111,7 @@ See the following instructions for **Resource Owner** and **Requesting Party** u
 | Name | Value |
 | ---- | ----- |
 | Domain Name | `example.com` |
-| AM_HOST | `as.example.com` |
-| AM_PASSWORD | `password` |
+| Default Password | `password` |
 
 ## Images / Containers
 
@@ -142,3 +121,13 @@ See the following instructions for **Resource Owner** and **Requesting Party** u
 | Mongo Database       | `db`    | `uma-db`    | `uma-db`    | `27017` | `27017`
 | Content Server       | `cs`    | `uma-cs`    | `uma-cs`    | `8085` | `8080`
 | Resource Server      | `rs`    | `uma-rs`    | `uma-rs`    | `8090` | `8080`
+
+## Related projects
+
+The following GitHub repositories are used:
+
+- [frdp-framework](https://github.com/ForgeRock/frdp-framework)
+- [frdp-dao-mongo](https://github.com/ForgeRock/frdp-dao-mongo)
+- [frdp-content-server](https://github.com/ForgeRock/frdp-content-server)
+- [frdp-dao-rest](https://github.com/ForgeRock/frdp-dao-rest)
+- [frdp-uma-resource-server](https://github.com/ForgeRock/frdp-uma-resource-server)
