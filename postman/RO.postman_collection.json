@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "abf04e08-fc0f-4344-816e-04c426b5ed3b",
-		"name": "UMA Resource Owner",
-		"description": "UMA Resource Owner",
+		"name": "Containers UMA: Resource Owner",
+		"description": "Resource Owner commands for User-Managed Access in Containers",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [

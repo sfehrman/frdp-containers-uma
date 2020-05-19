@@ -59,7 +59,8 @@ sudo vi /etc/hosts
 Use the `docker-compose` command build and run the Docker containers:
 
 ```bash
-docker-compose up --build
+$ cd frdp-containers-uma
+$ docker-compose up --build
 ```
 
 # Verify
@@ -124,6 +125,15 @@ See the following instructions for **Resource Owner** and **Requesting Party** u
 | Content Server       | `cs`    | `uma-cs`    | `uma-cs`    | `8085` | `8080`
 | Resource Server      | `rs`    | `uma-rs`    | `uma-rs`    | `8090` | `8080`
 
+## Services
+
+The *containers* expose services that are mapped to `localhost`, on specific ports.  
+
+| Server | URL | Description |
+| ------ | --- | ----------- |
+| Authorization Server | http://localhost:8080/am | ForgeRock Access Manager
+| Content Server | http://localhost:8085/content-server | CRUD REST service for JSON content
+| Resource Server | http://localhost:8090/resource-server | Reference Implementation of UMA Resource Server 
 ## Related projects
 
 The following GitHub repositories are used:

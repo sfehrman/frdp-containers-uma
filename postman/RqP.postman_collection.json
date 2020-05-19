@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "50cd1540-03c9-40e9-b73b-ecb3cc03ebbb",
-		"name": "UMA Requesting Party",
-		"description": "UMA Requesting Party",
+		"name": "Containers UMA: Requesting Party",
+		"description": "Requesting Party commands for User-Managed Access in Containers",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
