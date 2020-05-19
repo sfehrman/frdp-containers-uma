@@ -2,6 +2,8 @@
 
 ForgeRock Demonstration Platform (FRDP) : **UMA Containers** : Is a project that provides a *Ready-2-Run* environment for testing the User-Managed Access (UMA) Reference Implementation.  The project requires [`docker` and `docker-compose`](http://docs.docker.com) technologies.  The [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/) was used to develop this project.
 
+![overview image](images/containers-uma.png)
+
 `git clone https://github.com/ForgeRock/frdp-containers-uma.git`
 
 
