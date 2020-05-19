@@ -1,6 +1,6 @@
 # frdp-containers-uma
 
-ForgeRock Demonstration Platform (FRDP) : **UMA Containers** : Is a project that provides a *Ready-2-Run* environment for testing the User-Managed Access (UMA) Reference Implementation.  The project requires [`docker` and `docker-compose`](http://docs.docker.com) technologies.  The [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/) was used to develop this project.
+ForgeRock Demonstration Platform (FRDP) : **Containers UMA** : Is a project that provides a *Ready-2-Run* environment for testing the User-Managed Access (UMA) Reference Implementation.  The project requires [`docker` and `docker-compose`](http://docs.docker.com) technologies.  The [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/) was used to develop this project.
 
 ![overview image](images/containers-uma.png)
 
@@ -96,16 +96,9 @@ Log into the Authorization Server as the two test users. Open a web browser and 
 
 # Testing
 
-To test the UMA environment, [**postman**](https://www.postman.com/downloads/) collections have been provided.  Start `postman` and load the *environment* json file an the two *collection* json files:
+To test the UMA containers environment, [**postman**](https://www.postman.com/downloads/) collections have been provided. 
 
-- `postman/RS.postman_environment.json`
-- `postman/RO.postman_collection.json`
-- `postman/RqP.postman_collection.json`
-
-See the following instructions for **Resource Owner** and **Requesting Party** use cases.  Note: the use case instructions reference using *default* `postman` files ... skip this step, use the `postman` files in this project ... the environment has been pre-configured.
-
-- [Resource Owner](https://github.com/ForgeRock/frdp-uma-resource-server/blob/master/testing/RO/README.md)
-- [Requesting Party](https://github.com/ForgeRock/frdp-uma-resource-server/blob/master/testing/RqP/README.md)
+See the [Postman testing procedures](/postman/README.md) 
 
 # Reference
 
