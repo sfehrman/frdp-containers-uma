@@ -54,6 +54,10 @@ sudo vi /etc/hosts
 - **AFTER**: \
 `127.0.0.1       localhost as.example.com rs.example.com`
 
+## Notice
+
+This project will use a number of ports on your local system.  See the table below for which *localhost* ports are used.  The `docker-compose.yml` file and individual `Dockerfile` files can be modified to use different *localhost* ports.
+
 # Run
 
 Use the `docker-compose` command build and run the Docker containers:
