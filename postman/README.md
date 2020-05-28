@@ -94,7 +94,7 @@ A `resource` can be created by explicitly executing the REST/JSON interface for 
 1. Open the **`Resource`** Folder
 
 1. Select the **`Create content-default`** command\
-This is a `POST` method that uses Header variables: `X-frdp-ssotoken` that is set to the `ROtokenId` value
+This is a `POST` method that uses Header variables: `X-frdp-ssotoken` that is set to the `SSOTokenId` value
 
 1. Click **`Send`** \
 The `resource` is created in the **Resource Server (RS)**.\
@@ -209,7 +209,7 @@ This use case leverages the ForgeRock Access Manager APIs for obtaining informat
 
 The **Resource Owner (RO)** will typically have many `resources` shared with multiple *People* / **Requesting Parties (RqP)**.  The `resource` search functionality of the **Resource Server (RS)** returns a list of resources that the **RO** owns.  It would be nice if the **RO** could get a list of *People* that have access to their resources.
 
-The **RS** provides a "value add" service, not part of the UMA 2.0 specification, that enables the **RO** to get a list of "People" that have access to resources.  The **RS** leverages the ForgeRock Access Manager APIs to access policies associated to registered UMA `resources` and return a collection of *People* (the **RqP**) along with what `resources` and `scopes` are assigned to each *Person*.
+The **RS** provides a "value add" service, not part of the UMA 2.0 specification, that enables the **RO** to get a list of "People" that have access to resources.  The **RS** leverages the ForgeRock Access Manager APIs to access policies associated to registered UMA `resources` and returns a collection of *People* (the **RqP**) along with what `resources` and `scopes` are assigned to each *Person*.
 
 ### Procedure
 
@@ -495,7 +495,7 @@ The **Requesting Party (RqP)** uses a **Client Application (CA)**, which is an O
 1. Open the **`Get Resource`** Folder
 
 1. Select the **`1: Submit Request`** command \
-This is a `GET` method that uses the Header variable: `x-frdp-ssotoken` set to the `RqPtokenId` value. \
+This is a `GET` method that uses the Header variable: `x-frdp-ssotoken` set to the `SSOTokenId` value. \
 The `resourceId` is in URL path. \
 The `scopes` are set as a URL query parameter. \
 Example: `https://{{FQDN}}/resource-server/rest/share/resources/{{resourceId}}/?scopes={{scopes}}`
@@ -505,7 +505,7 @@ The `request` will fail, due to a missing (or invalid) **Requesting Party Token 
 The `response` will contain a JSON payload.  The **Permission Ticket**, (`ticket` attribute) and the **AS URI** (`as_uri` attribute) will be saved as Postman environment variables.
 
 1. Select the **`2: Get Authz Code`** command \
-This is a `POST` method that uses the Header variable: `iPlanetDirectoryPro` set to the `RqPtokenId` value. \
+This is a `POST` method that uses the Header variable: `iPlanetDirectoryPro` set to the `SSOTokenId` value. \
 It calls the OAuth 2.0 `/authorize` endpoint. \
 It uses `x-www-form-urlencoded` body. 
 
@@ -537,7 +537,7 @@ its value is saved as the Postman environment variable `reqPartyToken`.
 
 1. Select the **`5: Re-Submit Request`** command \
 This is a `GET` method that uses the Header variable: \
-`x-frdp-ssotoken` is set to the `RqPtokenId` value. \
+`x-frdp-ssotoken` is set to the `SSOTokenId` value. \
 `x-frdp-rpt` is set to the `reqPartyToken` value. \
 The `resourceId` is in URL path. \
 The `scopes` are set as a URL query parameter. \
@@ -591,7 +591,7 @@ This use case leverages the ForgeRock Access Manager APIs to obtain a collection
 
 When the **Resource Owner (RO)** creates / registers a `resources` the UMA 2.0 registration process generates a `registrationId` and it is "wrapped" in a `resourceId` by the **Resource Servers (RS)**.  The `resourceId` is the "public" reference the the `resource`.  The UMA 2.0 Specification does not cover *how* the resource identifier is transferred the the **Requesting Parties (RqP)**.  This is called the Resource Transfer Of Information (RTOI) scenario.  
 
-The **Requesting Party (RqP)** must know the *resource identifier* before they can initiate the resource access process.  The RTOI options can include the **Requesting Party (RqP)** pushing the *resource identifier* via an out-of-band mechanism such as email or instant messaging.  Another RTOI option can involve the **Resource Owner (RO)** asking the **Resource Server (RS)** what resources are currently being "Shared With Me".
+The **Requesting Party (RqP)** must know the *resource identifier* before they can initiate the resource access process.  The RTOI options can include the **Resource Owner (RO)** pushing the *resource identifier* via an out-of-band mechanism such as email or instant messaging.  Another RTOI option can involve the **Resource Owner (RO)** asking the **Requesting Party (RqP)** what resources are currently being "Shared With Me".
 
 ### Procedure
 

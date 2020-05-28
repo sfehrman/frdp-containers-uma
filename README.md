@@ -1,6 +1,16 @@
 # frdp-containers-uma
 
-ForgeRock Demonstration Platform (FRDP) : **Containers UMA** : Is a project that provides a *Ready-2-Run* environment for testing the User-Managed Access (UMA) Reference Implementation.  The project requires [`docker` and `docker-compose`](http://docs.docker.com) technologies.  The [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/) was used to develop this project.
+ForgeRock Demonstration Platform (FRDP) : **Containers UMA** : Is a repository that provides a *Ready-2-Run* environment for testing the User-Managed Access (UMA) Reference Implementation.  The project requires [`docker` and `docker-compose`](http://docs.docker.com) technologies.  The [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/) was used to develop this project.
+
+This GitHub repository leverages containers to easily *stand-up* a User-Managed Access (UMA) test environment. The following GitHub repositories are used:
+
+- [frdp-framework](https://github.com/ForgeRock/frdp-framework)
+- [frdp-dao-mongo](https://github.com/ForgeRock/frdp-dao-mongo)
+- [frdp-content-server](https://github.com/ForgeRock/frdp-content-server)
+- [frdp-dao-rest](https://github.com/ForgeRock/frdp-dao-rest)
+- [frdp-uma-resource-server](https://github.com/ForgeRock/frdp-uma-resource-server)
+
+The GitHub repositories, [ForgeRock Access Manager](https://www.forgerock.com/platform/access-management), and [MongoDB](https://www.mongodb.com/) are used to create [Docker](http://docs.docker.com) images that are managed by Docker Compose.  The provided Postman collections and *step-by-step* documentation provide a easy way to test UMA use cases.
 
 ![overview image](images/containers-uma.png)
 
