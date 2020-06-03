@@ -112,7 +112,7 @@ Log into the Authorization Server as the two test users. Open a web browser and 
 
 To test the UMA containers environment, [**postman**](https://www.postman.com/downloads/) collections have been provided. 
 
-See the [Postman testing procedures](/postman/README.md) 
+See the [Postman folder](/postman) ... which contains an environment file, collection files and test procedures.
 
 # Reference
 
