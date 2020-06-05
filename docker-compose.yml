@@ -1,0 +1,95 @@
+version: '3'
+
+services:
+  
+  # Authorization Server : ForgeRock Access Manager, Tomcat container
+
+  as:
+    image: "uma-as"
+    container_name: "uma-as"
+    stdin_open: true
+    tty: true
+    build:
+      context: "./containers/auth-server/docker"
+      dockerfile: "Dockerfile"
+      args:
+        - AM_HOST=as.example.com
+        - AM_PASSWORD=password
+    ports:
+      - "8080:8080"
+    hostname: "as"
+    domainname: "example.com"
+    networks:
+      uma:
+        aliases:
+          - "as.example.com"
+    volumes:
+      - "./containers/auth-server/docker/build/amster/am-snapshot:/opt/forgerock/am/snapshot"
+
+  # MongoDB : persistance for Content Server and Resource Server
+
+  db:
+    image: "uma-db"
+    container_name: "uma-db"
+    stdin_open: true
+    tty: true
+    build:
+      context: "./containers/mongodb/docker"
+      dockerfile: "Dockerfile"
+    ports:
+      - "27017:27017"
+    hostname: "db"
+    domainname: "example.com"
+    networks:
+      uma:
+        aliases:
+          - "db.example.com"
+
+  # Content Server : REST-based JSON document service, Tomcat container, Depends on MongoDB
+
+  cs:
+    image: "uma-cs"
+    container_name: "uma-cs"
+    stdin_open: true
+    tty: true
+    build:
+      context: "./containers/content-server/docker"
+      dockerfile: "Dockerfile"
+    depends_on:
+      - "db"
+    ports:
+      - "8085:8080"
+    hostname: "cs"
+    domainname: "example.com"
+    networks:
+      uma:
+        aliases:
+          - "cs.example.com"
+
+  # Resource Server : User-Manged Access
+  # Port mapping host=9000 / container=8000 is for remote Java debugger
+  
+  rs:
+    image: "uma-rs"
+    container_name: "uma-rs"
+    stdin_open: true
+    tty: true
+    build:
+      context: "./containers/resource-server/docker"
+      dockerfile: "Dockerfile"
+    depends_on:
+      - "as"
+      - "db"
+      - "cs"
+    ports:
+      - "8090:8080"
+      # - "9000:8000"
+    hostname: "rs"
+    domainname: "example.com"
+    networks:
+      uma:
+        aliases:
+          - "rs.example.com"
+
+networks:
+  uma:
