@@ -1,0 +1,19 @@
+{
+   "comment": "Content Server configuration for the Mongo Database",
+   "host": "db.example.com",
+   "port": "27017",
+   "database": "content-server",
+   "authen": {
+      "user": "contentadmin",
+      "password": "password",
+      "database": "content-server"
+   },
+   "collections": {
+      "content": {
+         "put": {
+            "comment": "create = true, PUT will create if not exist, else return not found",
+            "create": false
+         }
+      }
+   }
+}
