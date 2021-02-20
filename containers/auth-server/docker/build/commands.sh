@@ -17,15 +17,15 @@
 #
 
 # AM configuration variables
-# export AM_HOST="as.example.com"
-# export AM_PASSWORD="password"
+export AM_HOST="as.example.com"
+export AM_PASSWORD="password"
 export AM_URL="http://${AM_HOST}:8080/am"
 export AM_HOME="/root/am"
 export AMSTER_HOME="/opt/forgerock/amster"
 
 # Environment variables
 export TOMCAT_HOME="/usr/local/tomcat"
-export JAVA_HOME="/usr/lib/jvm/default-jvm/jre"
+export JAVA_HOME="/opt/java/openjdk"
 export WORK_DIR="/root/forgerock"
 
 # Config page. This comes up if AM is not configured
@@ -149,9 +149,6 @@ function install_am() {
         echo "Amster Installation failed"
         exit 1
     fi
-    # fix amster private key login (https://bugster.forgerock.org/jira/browse/OPENAM-11134)
-    sed -e "s/from=\"127.0.0.0\/24,::1\" //g" -i ${AM_HOME}/amster_rsa.pub
-    sed -e "s/from=\"127.0.0.0\/24,::1\" //g" -i ${AM_HOME}/authorized_keys
 
     cd - &>/dev/null
 }
@@ -165,7 +162,7 @@ function configure_am() {
     ./amster import-config.amster \
         -D AM_URL=${AM_URL} \
         -D AM_HOST=${AM_HOST} \
-        -D AMSTER_KEY=${AM_HOME}/amster_rsa \
+        -D AMSTER_KEY=${AM_HOME}/security/keys/amster/amster_rsa \
         -D AM_CONFIG_PATH=/opt/forgerock/am/configuration
     cd - &>/dev/null
 }
@@ -174,14 +171,9 @@ function configure_am() {
 # Load sample users via LDIF file
 #
 function load_users() {
-    echo "Loading sample users: ${AM_HOME}/opends/bin/ldapmodify"
-    ${AM_HOME}/opends/bin/ldapmodify \
-    --hostname localhost \
-    --bindDn "cn=Directory Manager" \
-    --bindPassword "${AM_PASSWORD}" \
-    --port 50389 --no-prompt \
-    --continueOnError \
-    /tmp/users.ldif
+    echo "Loading sample users (via curl): /opt/forgerock/am/users.sh"
+    /opt/forgerock/am/users.sh
+    echo ""
     cd - &>/dev/null
 }
 
@@ -194,7 +186,7 @@ function snapshot_am() {
     ./amster export-config.amster \
         -D AM_URL=${AM_URL} \
         -D AM_HOST=${AM_HOST} \
-        -D AMSTER_KEY=${AM_HOME}/amster_rsa \
+        -D AMSTER_KEY=${AM_HOME}/security/keys/amster/amster_rsa \
         -D AM_CONFIG_PATH=/opt/forgerock/am/snapshot/`date '+%Y%m%d%H%M%S'`
     cd - &>/dev/null
 }

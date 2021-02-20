@@ -1,7 +1,7 @@
 {
   "metadata" : {
     "realm" : null,
-    "amsterVersion" : "6.5.2.3",
+    "amsterVersion" : "7.0.1",
     "entityType" : "UmaProvider",
     "entityId" : "UmaProvider",
     "pathParams" : { }
@@ -9,7 +9,6 @@
   "data" : {
     "_id" : "",
     "defaults" : {
-      "resourceTypesManagedInternally" : true,
       "deletePoliciesOnDeleteRS" : true,
       "resharingMode" : "IMPLICIT",
       "permissionTicketLifetime" : 120,
