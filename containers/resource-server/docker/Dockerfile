@@ -6,10 +6,10 @@ FROM maven:3-openjdk-11 AS build
 
 # Get the required projects from github
 
-RUN git clone --progress --verbose https://github.com/ForgeRock/frdp-framework 
-RUN git clone --progress --verbose https://github.com/ForgeRock/frdp-dao-mongo
-RUN git clone --progress --verbose https://github.com/ForgeRock/frdp-dao-rest 
-RUN git clone --progress --verbose https://github.com/ForgeRock/frdp-uma-resource-server 
+RUN git clone --branch 1.2.0 --progress --verbose https://github.com/ForgeRock/frdp-framework 
+RUN git clone --branch 1.2.0 --progress --verbose https://github.com/ForgeRock/frdp-dao-mongo
+RUN git clone --branch 1.2.0 --progress --verbose https://github.com/ForgeRock/frdp-dao-rest 
+RUN git clone --branch 1.2.0 --progress --verbose https://github.com/ForgeRock/frdp-uma-resource-server 
 
 # run maven (mvn) to compile jar files and package the war file
 
