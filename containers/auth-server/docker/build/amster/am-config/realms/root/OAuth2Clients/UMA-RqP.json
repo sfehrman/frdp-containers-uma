@@ -22,7 +22,7 @@
       "descriptions" : [ "User Managed Access (UMA) Requesting Party Client" ],
       "subjectType" : "public",
       "policyUri" : [ ],
-      "grantTypes" : [ "authorization_code", "password" ],
+      "grantTypes" : [ "authorization_code", "password", "urn:ietf:params:oauth:grant-type:uma-ticket"],
       "mixUpMitigation" : false,
       "javascriptOrigins" : [ ]
     },
