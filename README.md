@@ -32,6 +32,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Install [**docker**](https://docs.docker.com/get-started/) on your desktop
 
+## Clone this project
+
+```bash
+git clone --branch develop https://github.com/ForgeRock/frdp-containers-uma.git
+```
+
 ## ForgeRock Access Manager / Amster
 
 This project uses the ForgeRock Access Manager 7.0.1 which provides User-Manager Access (UMA) Authorization Server functionality. The ForgeRock Amster utility is used to automate the configuration of Access Manager.  Access Manager and Amster can be download from the ForgeRock [backstage](https://backstage.forgerock.com/downloads/browse/am/latest) web site.  
@@ -48,12 +54,6 @@ Copy the `openam/AM-7.0.1.war` file to: \
 `containers/auth-server/docker/build/resources/amster.zip`
 
 # Setup
-
-## Clone this project
-
-```bash
-git clone --branch develop https://github.com/ForgeRock/frdp-containers-uma.git
-```
 
 ## hostnames
 
