@@ -103,8 +103,8 @@ Log into the Authorization Server as the two test users. Open a web browser and 
 
 | User | Password | First name | Last name | UMA operations |
 | ---- | -------- | ---------- | --------- | -------------- |
-| `dcrane` | `password` | Danny | Crane | Resource Owner |
-| `bjensen` | `password` | Barb | Jensen | Requesting Party |
+| `dcrane` | `Uma-1234` | Danny | Crane | Resource Owner |
+| `bjensen` | `Uma-1234` | Barb | Jensen | Requesting Party |
 
 - From the top toolbar
 - Select **SHARES** drop down menu
@@ -130,7 +130,6 @@ See the [Postman folder](/postman) ... which contains an environment file, colle
 | Domain Name | `example.com` | |
 | Admin Password | `password` | used by `amadmin` user |
 | OAuth Client Password | `password` | used by `UMA-RS` and `UMA-RqP` clients |
-| User Password | `Uma-1234` | used by `dcrane` and `bjensen` users |
 
 ## Images / Containers
 
