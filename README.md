@@ -35,7 +35,7 @@ Install [**docker**](https://docs.docker.com/get-started/) on your desktop
 ## Clone this project
 
 ```bash
-git clone --branch develop https://github.com/ForgeRock/frdp-containers-uma.git
+git clone https://github.com/ForgeRock/frdp-containers-uma.git
 ```
 
 ## ForgeRock Access Manager / Amster
