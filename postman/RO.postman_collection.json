@@ -290,6 +290,13 @@
 								"manage",
 								"resources",
 								"{{resourceId}}"
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "reference",
+									"disabled": true
+								}
 							]
 						},
 						"description": "Get the details for a specific resources. A resource may include some or all of the following: \n\n- meta\n- content\n- registration (UMA)\n    - policy"
@@ -561,6 +568,13 @@
 								"resources",
 								"{{resourceId}}",
 								"content"
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "reference",
+									"disabled": true
+								}
 							]
 						},
 						"description": "Read the content (JSON) from the Content Server"
