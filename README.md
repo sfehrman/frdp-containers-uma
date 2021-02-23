@@ -51,6 +51,12 @@ Copy the `openam/AM-7.0.1.war` file to: \
 
 # Setup
 
+## Clone this project
+
+```bash
+git clone --branch develop https://github.com/ForgeRock/frdp-containers-uma.git
+```
+
 ## hostnames
 
 You must add the following aliases to the `/etc/hosts` file for `localhost`
@@ -121,10 +127,12 @@ See the [Postman folder](/postman) ... which contains an environment file, colle
 
 ## Properties
 
-| Name | Value |
-| ---- | ----- |
-| Domain Name | `example.com` |
-| Default Password | `password` |
+| Name | Value | Reference |
+| ---- | ----- | --------- |
+| Domain Name | `example.com` | |
+| Admin Password | `password` | used by `amadmin` user |
+| OAuth Client Password | `password` | used by `UMA-RS` and `UMA-RqP` clients |
+| User Password | `Uma-1234` | used by `dcrane` and `bjensen` users |
 
 ## Images / Containers
 
