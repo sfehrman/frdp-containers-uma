@@ -2,13 +2,13 @@
 
 # Get a container (maven) for compiling source code
 
-FROM maven:3-jdk-8 AS build  
+FROM maven:3-openjdk-11 AS build  
 
 # Get the required projects from github
 
-RUN git clone --progress --verbose https://github.com/ForgeRock/frdp-framework 
-RUN git clone --progress --verbose https://github.com/ForgeRock/frdp-dao-mongo
-RUN git clone --progress --verbose https://github.com/ForgeRock/frdp-content-server
+RUN git clone --branch 1.2.0 --progress --verbose https://github.com/ForgeRock/frdp-framework 
+RUN git clone --branch 1.2.0 --progress --verbose https://github.com/ForgeRock/frdp-dao-mongo
+RUN git clone --branch 1.2.0 --progress --verbose https://github.com/ForgeRock/frdp-content-server
 
 # run maven (mvn) to compile jar files and package the war file
 
@@ -22,11 +22,11 @@ RUN mvn verify clean --fail-never package
 
 # Get a container (tomcat) to run the application
 
-FROM tomcat:8.5-alpine
+FROM tomcat:9-jdk11-adoptopenjdk-hotspot
 
 # Remove default applicatons
 
-RUN rm -r /usr/local/tomcat/webapps/*
+RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy the expanded application folder
 
