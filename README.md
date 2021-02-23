@@ -14,8 +14,6 @@ The GitHub repositories, [ForgeRock Access Manager](https://www.forgerock.com/pl
 
 ![overview image](images/containers-uma.png)
 
-`git clone https://github.com/ForgeRock/frdp-containers-uma.git`
-
 ## Video
 
 Watch the [YouTube video](https://www.youtube.com/watch?v=9kPqt5gfI4g) that covers the setup procedures, builds the containers and runs the test use cases.
