@@ -48,14 +48,12 @@ The **Resource Server (RS)** is designed to be flexible and supports the `resour
 
 | State | Description |
 | ----- | ----------- |
-| Created | The `resource` is only known to the **Resource Server(RS)**.  It only has meta data.
-| Content | *(optional)* The `resource` has an associated external JSON document.  The **RS** manages a handle to it
-| Registered | The `resource` has been *registered* with the **Authorization Server (AS)**.  The registered `resource` is managed by the **RS**.
-| Policy | The registered `resource` has at least one policy (permission) assigned, allowing one or more users to access the `resource` using specific scopes.
+| **Created** | The `resource` is only known to the **Resource Server(RS)**.  It only has meta data.
+| **Content** | *(optional)* The `resource` has an associated external JSON document.  The **RS** manages a handle to it
+| **Registered** | The `resource` has been *registered* with the **Authorization Server (AS)**.  The registered `resource` is managed by the **RS**.
+| **Policy** | The registered `resource` has at least one policy (permission) assigned, allowing one or more users to access the `resource` using specific scopes.
 
 Each of the above `resource` states can be managed individually.
-
-Remove **all** the Cookies
 
 ## Authenticate
 
@@ -65,25 +63,25 @@ The **Resource Owner (RO)** needs to authenticate to the **Authorization Server 
 
 1. Open the **`Authenticate`** Folder
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 This is a `POST` method that uses Header variables: `X-OpenAM-Username` and `X-OpenAM-Password` \
 to authenticate the **RO** user
 
 1. Click **`Send`** \
 A JSON payload is returned: \
 ```{"tokenId":"...","successUrl":"/openam/console","realm":"/"}```\
-The `tokenId` attribute is saved as a Postman environment variable: `SSOTokenId`. \
+The `tokenId` attribute is saved as a Postman environment variable: `ROtoken`. \
 The **Authorization Server (AS)**, *ForgeRock Access Manager*, sets a Cookie: `iPlanetDirectoryPro`
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 This is a `POST` method that uses the Cookie `iPlanetDirectoryPro` and validates that the user's session is still valid.
 
 1. Click **`Send`** \
 A valid session will return a JSON payload: \
-```{"valid":true,"sessionUid":"...","uid":"dcrane","realm":"/"}```\
+```{"valid":true,"sessionUid":"...","uid":"dcrane","realm":"/"}``` \
 The `uid` value **MUST** be `dcrane`, the **Resource Owner (RO)**
 
-1. DO NOT CONTINUE WITHOUT A VALID SSO SESSION
+1. **DO NOT CONTINUE WITHOUT A VALID SSO SESSION**
 
 ## Create 
 
@@ -93,13 +91,13 @@ A `resource` can be created by explicitly executing the REST/JSON interface for 
 
 1. Open the **`Resource`** Folder
 
-1. Select the **`Create content-default`** command\
-This is a `POST` method that uses Header variables: `X-frdp-ssotoken` that is set to the `SSOTokenId` value
+1. Select the **`Create content-default`** request \
+This is a `POST` method that uses Header variables: `X-frdp-ssotoken` that is set to the `ROtoken` value
 
 1. Click **`Send`** \
-The `resource` is created in the **Resource Server (RS)**.\
-The `content` was added to the **Content Server (CS)**.\
-The `resource` was registered with the **Authorization Server (AS)**.\
+The `resource` is created in the **Resource Server (RS)**. \
+The `content` was added to the **Content Server (CS)**. \
+The `resource` was registered with the **Authorization Server (AS)**. \
 The `policy` was applied with the **Authorization Server (AS)**.
 
 ## Search
@@ -110,11 +108,11 @@ Run the *search* command to get a collection of resources.  You **must** run thi
 
 1. Open the **`Resource`** Folder
 
-1. Select the **`Search`** command\
-This is a `GET` method that uses Header variables: `X-frdp-ssotoken` that is set to the `SSOTokenId` value
+1. Select the **`Search`** request \
+This is a `GET` method that uses Header variables: `X-frdp-ssotoken` that is set to the `ROtoken` value
 
-1. Click **`Send`**\
-The response is a JSON payload that contains an array of `resource` identifiers.\
+1. Click **`Send`** \
+The response is a JSON payload that contains an array of `resource` identifiers. \
 The first item in the array `results` will be used for other commands.
 
 ```json
@@ -133,10 +131,10 @@ Run the *read* command to get a specific resource.
 
 1. Open the **`Resource`** Folder
 
-1. Select the **`Read`** command\
-This is a `GET` method that uses Header variables: `X-frdp-ssotoken` that is set to the `SSOTokenId` value
+1. Select the **`Read`** request \
+This is a `GET` method that uses Header variables: `X-frdp-ssotoken` that is set to the `ROtoken` value
 
-1. Click **`Send`**\
+1. Click **`Send`** \
 The response is a JSON payload that contains all the objects for the `resource`
 
 ```json
@@ -194,8 +192,8 @@ Run the *delete* command to remove the resource. The following steps will be com
 
 1. Open the **`Resource`** Folder
 
-1. Select the **`Delete`** command\
-This is a `DELETE` method that uses Header variables: `X-frdp-ssotoken` that is set to the `SSOTokenId` value
+1. Select the **`Delete`** request \
+This is a `DELETE` method that uses Header variables: `X-frdp-ssotoken` that is set to the `ROtoken` value
 
 1. Click **`Send`**
 
@@ -218,22 +216,21 @@ The **RS** provides a "value add" service, not part of the UMA 2.0 specification
 
 ### Testing
 
-1. Setup Postman for the **Resource Owner (RO)**. \
-Clear all cookies
+1. Setup Postman for the **Resource Owner (RO)**
 
 1. Open the **`Containers UMA: Resource Owner`** Postman Collection
 
 1. Open the **`Authenticate`** Folder *(login as the **Resource Owner (RO)**)*
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Extra`** Folder
 
-1. Select the **`Subjects Search`** command \
+1. Select the **`Subjects Search`** request \
 Click **`Send`** \
 The response is a JSON payload containing a collection of *People* that have access to one or more `resources` ...
 
@@ -302,22 +299,21 @@ When the **Authorization Server (AS)**, ForgeRock Access Manager, is unable to c
 
 #### RO: Create resource:
 
-1. Setup Postman for the **Resource Owner (RO)**. \
-Clear all cookies
+1. Setup Postman for the **Resource Owner (RO)**
 
 1. Open the **`Containers UMA: Resource Owner`** Postman Collection
 
 1. Open the **`Authenticate`** Folder, *login as the **Resource Owner (RO)***
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Resource`** Folder
 
-1. Select the **`Delete`** command *(removes the existing `resource`, if it exists)* \
+1. Select the **`Delete`** request *(removes the existing `resource`, if it exists)* \
 Click **`Send`**
 
 1. Select the **`Create`** command
@@ -328,41 +324,40 @@ Click **`Send`**
 Remove the the `policy` object from the JSON structure \
 Click **`Send`** 
 
-1. Select the **`Search`** command \
+1. Select the **`Search`** request \
 (find the new resource and set Postman variable) \
 Click **`Send`** 
 
-1. Select the **`Read`** command \
+1. Select the **`Read`** request \
 (verify resource was created and registered but has **no** policy.) \
 Click **`Send`** 
 
 #### RqP: Attempt access:
 
-1. Setup Postman for the **Requesting Party (RqP)**. \
-Clear all cookies
+1. Setup Postman for the **Requesting Party (RqP)**
 
 1. Open the **`Containers UMA: Requesting Party`** Postman Collection
 
 1. Open the **`Authenticate`** Folder, *login as the **Requesting Party (RqP)***
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Get Resource`** Folder
 
-1. Select the **`1: Submit Request`** command \
+1. Select the **`1: Submit Request`** request \
 Click **`Send`** 
 
-1. Select the **`2: Get Authz Code`** command \
+1. Select the **`2: Get Authz Code`** request \
 Click **`Send`**
 
-1. Select the **`3: Get Claim Token`** command \
+1. Select the **`3: Get Claim Token`** request \
 Click **`Send`** 
 
-1. Select the **`4: Get RPT`** command \
+1. Select the **`4: Get RPT`** request \
 Click **`Send`** \
 The request will fail, `403 Forbidden`, because the **Requesting Party (RqP)** does not have permission (a policy). \
 An "access request" is sent to the **Resource Owner (RO)**
@@ -377,66 +372,65 @@ An "access request" is sent to the **Resource Owner (RO)**
 
 #### RO: Approve request
 
-1. Setup Postman for the **Resource Owner (RO)**. \
-Clear all cookies
+1. Setup Postman for the **Resource Owner (RO)**
+
 1. Open the **`Containers UMA: Resource Owner`** Postman Collection
 
 1. Open the **`Authenticate`** Folder, *login as the **Resource Owner (RO)***
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Pending Requests`** Folder
 
-1. Select the **`Request Search`** command \
+1. Select the **`Request Search`** request \
 Click **`Send`** \
 There should be one `requestId` in the JSON array. \
 The first `requestId` is saved as a Postman Environment Variable
 
-1. Select the **`Request Read`** command \
+1. Select the **`Request Read`** request \
 Click **`Send`** \
 The details of the request are returned as JSON ... \
 `{"resource":"SAVE-456","permissions":["meta","content"],"_id":"ac0bb370-c1b9-4a09-aeef-3d0a78b410a20","user":"bjensen","when":1579717632556}`
 
-1. Select the **`Request Approve Deny`** command \
+1. Select the **`Request Approve Deny`** request \
 Click **`Send`** \
 The body contains JSON which approves the request: `{"action": "approve"}` \
 The request is approved, a policy is created / updated to grant the **Requesting Party (RqP)** access to the `resource` for the specified `scopes`
 
 #### RqP: Re-Attempt access:
 
-1. Setup Postman for the **Requesting Party (RqP)**. \
-Clear all cookies
+1. Setup Postman for the **Requesting Party (RqP)**
 
 1. Open the **`Containers UMA: Requesting Party`** Postman Collection
 
 1. Open the **`Authenticate`** Folder, *login as the **Requesting Party (RqP)***
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **Validate** command \
+1. Select the **Validate** request \
 Click **`Send`** 
 
 1. Open the **`Get Resource`** Folder
 
-1. Select the **`1: Submit Request`** command \
+1. Select the **`1: Submit Request`** request \
 Click **`Send`** 
 
-1. Select the **`2: Get Authz Code`** command \
+1. Select the **`2: Get Authz Code`** request \
 Click **`Send`**
 
-1. Select the **`3: Get Claim Token`** command \
+1. Select the **`3: Get Claim Token`** request \
 Click **`Send`** 
 
-1. Select the **`4: Get RPT`** command \
+1. Select the **`4: Get RPT`** request \
 Click **`Send`** \
 The **Requesting Party Token (RPT)** is now issued because the request approved.
 
-1. Select the **`5: Re-Submit Request`** command \
+1. Select the **`5: Re-Submit Request`** request \
 Click **`Send`** \
 The `resource` is returned.
 
@@ -457,8 +451,6 @@ The **UMA** protocol defines a specific *flow* for how a `resource` is accessed.
 | Get Requesting Party Token | A **UMA Requesting Party Token (RPT)** is obtained from the **Authorization Server (AS)** using the **UMA Permission Ticket** and the **UMA Claim Token**
 | Re-Submit Request | Submit a request which includes the `resource Id`, `scopes` and a valid **Requesting Party (RPT)**.  The **RPT** is verified by the **Resources Server (RS)**, which contacts the **Authorization Server (AS)**.  The **RS** returns a JSON response with data based on the `scopes`.
 
-Remove **all** the Cookies
-
 ## Authenticate
 
 The **Requesting Party (RqP)** needs to authenticate to the **Authorization Server (AS)**, *ForgeRock Access Manager*, and obtain a Single-Sign-On (SSO) token: `tokenId`
@@ -467,16 +459,16 @@ The **Requesting Party (RqP)** needs to authenticate to the **Authorization Serv
 
 1. Open the **`Authenticate`** Folder
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 This is a `POST` method that uses Header variables: `X-OpenAM-Username` and `X-OpenAM-Password` to authenticate the user **(RqP)**
 
 1. Click **Send** \
 A JSON payload is returned: \
 ```{"tokenId":"...","successUrl":"/openam/console","realm":"/"}```\
-The `tokenId` attribute is saved as a Postman environment variable: `SSOTokenId`. \
+The `tokenId` attribute is saved as a Postman environment variable: `RqPtoken`. \
 The **Authorization Server (AS)**, *ForgeRock Access Manager*, sets a Cookie: `iPlanetDirectoryPro`
 
-1. Select the **Validate** command \
+1. Select the **Validate** request \
 This is a `POST` method that uses the Cookie `iPlanetDirectoryPro` and validates that the user's session is still valid.
 
 1. Click **Send** \
@@ -494,8 +486,8 @@ The **Requesting Party (RqP)** uses a **Client Application (CA)**, which is an O
 
 1. Open the **`Get Resource`** Folder
 
-1. Select the **`1: Submit Request`** command \
-This is a `GET` method that uses the Header variable: `x-frdp-ssotoken` set to the `SSOTokenId` value. \
+1. Select the **`1: Submit Request`** request \
+This is a `GET` method that uses the Header variable: `x-frdp-ssotoken` set to the `RqPtoken` value. \
 The `resourceId` is in URL path. \
 The `scopes` are set as a URL query parameter. \
 Example: `https://{{FQDN}}/resource-server/rest/share/resources/{{resourceId}}/?scopes={{scopes}}`
@@ -504,8 +496,8 @@ Example: `https://{{FQDN}}/resource-server/rest/share/resources/{{resourceId}}/?
 The `request` will fail, due to a missing (or invalid) **Requesting Party Token (RPT)** \
 The `response` will contain a JSON payload.  The **Permission Ticket**, (`ticket` attribute) and the **AS URI** (`as_uri` attribute) will be saved as Postman environment variables.
 
-1. Select the **`2: Get Authz Code`** command \
-This is a `POST` method that uses the Header variable: `iPlanetDirectoryPro` set to the `SSOTokenId` value. \
+1. Select the **`2: Get Authz Code`** request \
+This is a `POST` method that uses the Header variable: `iPlanetDirectoryPro` set to the `RqPtoken` value. \
 It calls the OAuth 2.0 `/authorize` endpoint. \
 It uses `x-www-form-urlencoded` body. 
 
@@ -515,7 +507,7 @@ Example: ```<input type='hidden', name='code', value='...'>``` \
 The `code` value is saved as a Postman Environment Variable: `authzCode` \
 The `basicAuth` variable is create by encoding the OAuth `clientId` and `clientSecret`.  This is used in the next step for Basic Authentication
 
-1. Select the **`3: Get Claim Token`** command \
+1. Select the **`3: Get Claim Token`** request \
 This is a `POST` method that uses the Header variable: `Authorization` \
 It calls the OAuth 2.0 `/access_token` endpoint to get the **Claim Token**. \
 It uses `x-www-form-urlencoded` body. 
@@ -525,7 +517,7 @@ The `response` will contain a JSON payload.
 The JSON attribute `id_token` is the **Claim Token** and its value is saved
 as the Postman environment variable `claimToken`.
 
-1. Select the **`4: Get RPT`** command \
+1. Select the **`4: Get RPT`** request \
 This is a `POST` method that uses the Header variable: `Authorization` \
 It calls the OAuth 2.0 `/access_token` endpoint to get the **Requesting Party Token**. \
 It uses `x-www-form-urlencoded` body. 
@@ -535,9 +527,9 @@ The `response` will contain a JSON payload.
 The JSON attribute `access_token` is the **Requesting Party Token** and 
 its value is saved as the Postman environment variable `reqPartyToken`.
 
-1. Select the **`5: Re-Submit Request`** command \
+1. Select the **`5: Re-Submit Request`** request \
 This is a `GET` method that uses the Header variable: \
-`x-frdp-ssotoken` is set to the `SSOTokenId` value. \
+`x-frdp-ssotoken` is set to the `RqPtoken` value. \
 `x-frdp-rpt` is set to the `reqPartyToken` value. \
 The `resourceId` is in URL path. \
 The `scopes` are set as a URL query parameter. \
@@ -603,52 +595,50 @@ The **Requesting Party (RqP)** must know the *resource identifier* before they c
 
 #### RO: Create resource:
 
-1. Setup Postman for the **Resource Owner (RO)**. \
-Clear all cookies
+1. Setup Postman for the **Resource Owner (RO)**
 
 1. Open the **`Containers UMA: Resource Owner`** Postman Collection
 
 1. Open the **`Authenticate`** Folder *(login as the **Resource Owner (RO)**)*
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Manage Resource`** Folder
 
-1. Select the **`Delete`** command *(removes the existing `resource`, if it exists)* \
+1. Select the **`Delete`** request *(removes the existing `resource`, if it exists)* \
 Click **`Send`**
 
-1. Select the **`Create`** command \
+1. Select the **`Create`** request \
 Click **`Send`** 
 
-1. Select the **`Search`** command \
+1. Select the **`Search`** request \
 Click **`Send`** 
 
-1. Select the **`Read`** command \
+1. Select the **`Read`** request \
 (verify resource was created and registered.) \
 Click **`Send`** 
 
 #### RqP: Shared With Me:
 
-1. Setup Postman for the **Requesting Party (RqP)**. \
-Clear all cookies
+1. Setup Postman for the **Requesting Party (RqP)**
 
 1. Open the **`Containers UMA: Requesting Party`** Postman Collection
 
 1. Open the **`Authenticate`** Folder, *login as the **Requesting Party (RqP)***
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Extra`** Folder
 
-1. Select the **`Shared With Me`** command \
+1. Select the **`Shared With Me`** request \
 Click **`Send`** \
 The response is a JSON structure.  The `results` JSON object contains details for each resource that has been shared with the **Requesting Party (RqP)**.  The `id` attribute is the *resource identifier* (`resource Id`), which can be used to issue a UMA 2.0 access request.
 
@@ -693,25 +683,24 @@ A **Resource Owner (RO)** may create / register resources but not pre-assign a p
 
 #### RO: Create resource:
 
-1. Setup Postman for the **Resource Owner (RO)**. \
-Clear all cookies
+1. Setup Postman for the **Resource Owner (RO)**
 
 1. Open the **`Containers UMA: Resource Owner`** Postman Collection
 
 1. Open the **`Authenticate`** Folder *(login as the **Resource Owner (RO)**)*
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Manage Resource`** Folder
 
-1. Select the **`Delete`** command *(removes the existing `resource`, if it exists)* \
+1. Select the **`Delete`** request *(removes the existing `resource`, if it exists)* \
 Click **`Send`**
 
-1. Select the **`Create`** command
+1. Select the **`Create`** request
 
 1. Select the **`Body`** tab
 
@@ -721,32 +710,31 @@ Remove the `policy` object that is inside the `register` object \
 (A resource **MUST** be registered to enable *discovery*, thus needs the `register` object) \
 Click **`Send`** 
 
-1. Select the **`Search`** command \
+1. Select the **`Search`** request \
 (sets the PostMan Environment Variable for the `resourceId`) \
 Click **`Send`** 
 
-1. Select the **`Read`** command \
+1. Select the **`Read`** request \
 Click **`Send`** \
 (verify resource was created, not registered, and that the `meta` attribute `discoverable` is set to "true")
 
 #### RqP: Discover Resource:
 
-1. Setup Postman for the **Requesting Party (RqP)**. \
-Clear all cookies
+1. Setup Postman for the **Requesting Party (RqP)**
 
 1. Open the **`Containers UMA: Requesting Party`** Postman Collection
 
 1. Open the **`Authenticate`** Folder *(login as the **Requesting Party (RqP)**)*
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Extra`** Folder \
 
-1. Select the **`Discover Resources`** command \
+1. Select the **`Discover Resources`** request \
 Click **`Send`**
 The response is a JSON structure.  The `results` JSON object contains details for each resource that has been made *"discoverable"* by the **Resource Owner (RO)**. The `id` attribute is the *resource identifier* (`resource Id`), which can be used to issue a UMA 2.0 access request.
 
@@ -792,73 +780,70 @@ The **Resource Server (RS)** provides a *revoke* service where a **Requesting Pa
 
 #### RO: Create resource:
 
-1. Setup Postman for the **Resource Owner (RO)**. \
-Clear all cookies
+1. Setup Postman for the **Resource Owner (RO)**
 
 1. Open the **`Containers UMA: Resource Owner`** Postman Collection
 
 1. Open the **`Authenticate`** Folder *(login as the **Resource Owner (RO)**)*
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Manage Resource`** Folder
 
-1. Select the **`Delete`** command *(removes the existing `resource`, if it exists)* \
+1. Select the **`Delete`** request *(removes the existing `resource`, if it exists)* \
 Click **`Send`**
 
-1. Select the **`Create`** command \
+1. Select the **`Create`** request \
 Click **`Send`** 
 
-1. Select the **`Search`** command \
+1. Select the **`Search`** request \
 (sets the PostMan Environment Variable for the `resourceId`) \
 Click **`Send`** 
 
-1. Select the **`Read`** command \
+1. Select the **`Read`** request \
 Click **`Send`** \
 (verify resource was created, not registered, and that the `meta` attribute `discoverable` is set to "true")
 
 #### RqP: Revokes Access
 
-1. Setup Postman for the **Requesting Party (RqP)**. \
-Clear all cookies
+1. Setup Postman for the **Requesting Party (RqP)**
 
 1. Open the **`Containers UMA: Requesting Party`** Postman Collection
 
 1. Open the **`Authenticate`** Folder *(login as the **Requesting Party (RqP)**)*
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Extra`** Folder 
 
-1. Select the **`Revoke My Access`** command \
+1. Select the **`Revoke My Access`** request \
 Click **`Send`** 
 
 #### RO: Verify policy
 
-1. Setup Postman for the **Resource Owner (RO)**. \
-Clear all cookies
+1. Setup Postman for the **Resource Owner (RO)**
 
 1. Open the **`Containers UMA: Resource Owner`** Postman Collection
 
 1. Open the **`Authenticate`** Folder, *login as the **Resource Owner (RO)***
 
-1. Select the **`Login`** command \
+1. Select the **`Login`** request \
 Click **`Send`** 
 
-1. Select the **`Validate`** command \
+1. Select the **`Validate`** request \
 Click **`Send`** 
 
 1. Open the **`Extra`** Folder
 
-1. Select the **`Register Read`** command \
+1. Select the **`Register Read`** request \
 Click **`Send`** \
 The **Requesting Party (RqP)** should no longer existing in the JSON Array `permissions`, as a JSON Object, with a `subject` attribute ...
 

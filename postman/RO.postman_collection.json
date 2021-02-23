@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "27d88fd7-00c5-4616-b5e8-a425d587be65",
+		"_postman_id": "41a25c7b-1959-4f96-9022-20e7de1917a0",
 		"name": "Containers UMA: Resource Owner",
 		"description": "Resource Owner commands for User-Managed Access in Containers",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -15,15 +15,17 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7a3b76f7-bd1e-496b-b84b-f63131135cdf",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"SSOTokenId\", jsonData.tokenId);"
+									"postman.setEnvironmentVariable(\"ROtoken\", jsonData.tokenId);"
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -66,6 +68,9 @@
 				},
 				{
 					"name": "Validate",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -76,12 +81,13 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "iPlanetDirectoryPro",
+								"value": "{{ROtoken}}",
+								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \n  \"tokenId\": \"{{SSOTokenId}}\" \n}"
-						},
 						"url": {
 							"raw": "{{FQDN-as}}/json/realms/root/sessions?_action=validate",
 							"host": [
@@ -104,14 +110,16 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Resource",
 			"item": [
 				{
 					"name": "Create content-default",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -121,7 +129,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"body": {
@@ -145,6 +153,9 @@
 				},
 				{
 					"name": "Create content-refonly",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -154,7 +165,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"body": {
@@ -178,6 +189,9 @@
 				},
 				{
 					"name": "Create content-fhir",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -187,7 +201,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"body": {
@@ -215,7 +229,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "02a0da64-59f2-479b-be21-c9e66f66a02d",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"resourceId\", jsonData.results[0]);"
@@ -224,6 +237,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -233,7 +249,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -253,12 +269,15 @@
 				},
 				{
 					"name": "Read",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -279,12 +298,15 @@
 				},
 				{
 					"name": "Delete",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -308,7 +330,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "f5052c15-57cf-4ace-b962-16a2c8578a2f",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -318,27 +339,28 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5b2fad9b-ed18-4469-9737-f3d3392bf8d1",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Meta Data",
 			"item": [
 				{
 					"name": "Read",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -360,6 +382,9 @@
 				},
 				{
 					"name": "Replace",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -369,7 +394,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"body": {
@@ -393,14 +418,16 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Content",
 			"item": [
 				{
 					"name": "Create default",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -410,7 +437,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"body": {
@@ -436,6 +463,9 @@
 				},
 				{
 					"name": "Create refonly",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -445,7 +475,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"body": {
@@ -471,6 +501,9 @@
 				},
 				{
 					"name": "Create fhir",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -480,7 +513,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"body": {
@@ -506,12 +539,15 @@
 				},
 				{
 					"name": "Read",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -533,6 +569,9 @@
 				},
 				{
 					"name": "Replace default",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -542,7 +581,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"body": {
@@ -568,6 +607,9 @@
 				},
 				{
 					"name": "Replace refonly",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -577,7 +619,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"body": {
@@ -603,6 +645,9 @@
 				},
 				{
 					"name": "Replace fhir",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -612,7 +657,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"body": {
@@ -638,12 +683,15 @@
 				},
 				{
 					"name": "Delete",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -663,20 +711,22 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Registration",
 			"item": [
 				{
 					"name": "Read",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -705,12 +755,15 @@
 				},
 				{
 					"name": "Replace",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							},
 							{
 								"key": "Content-Type",
@@ -740,12 +793,15 @@
 				},
 				{
 					"name": "Delete",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -765,20 +821,22 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Policy",
 			"item": [
 				{
 					"name": "Read",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -801,12 +859,15 @@
 				},
 				{
 					"name": "Replace",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							},
 							{
 								"key": "Content-Type",
@@ -837,12 +898,15 @@
 				},
 				{
 					"name": "Delete",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -863,8 +927,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Pending Requests",
@@ -875,7 +938,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ca05cf5d-d34c-4341-a319-a534a439a91c",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"requestId\", jsonData.results[0]);"
@@ -884,6 +946,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -893,7 +958,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -913,6 +978,9 @@
 				},
 				{
 					"name": "Read",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -922,7 +990,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -943,12 +1011,15 @@
 				},
 				{
 					"name": "Approve Deny",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							},
 							{
 								"key": "Content-Type",
@@ -976,14 +1047,16 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Extra",
 			"item": [
 				{
 					"name": "Subjects Search",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -993,7 +1066,7 @@
 							},
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}"
+								"value": "{{ROtoken}}"
 							}
 						],
 						"url": {
@@ -1013,6 +1086,9 @@
 				},
 				{
 					"name": "well-known",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -1036,7 +1112,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "ee8d3502-c5b4-407f-a39c-b70b595c3b07",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1046,22 +1121,19 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "aad50e7b-79b1-44f0-93c8-4a64ffd984c6",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "35c7f04d-ac7d-4e09-8329-58478a9c2113",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1071,13 +1143,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "4378343f-b3d2-4de7-8a91-97fb450ff9db",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

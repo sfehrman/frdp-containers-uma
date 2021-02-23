@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "458bf3d4-921d-47bd-b94a-f9e92687f623",
+		"_postman_id": "ba922c6d-5d7d-4d73-86a9-820bca8c82a0",
 		"name": "Containers UMA: Requesting Party",
 		"description": "Requesting Party commands for User-Managed Access in Containers",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -15,15 +15,17 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7a3b76f7-bd1e-496b-b84b-f63131135cdf",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"SSOTokenId\", jsonData.tokenId);"
+									"postman.setEnvironmentVariable(\"RqPtoken\", jsonData.tokenId);"
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -66,6 +68,9 @@
 				},
 				{
 					"name": "Validate",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -76,12 +81,13 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "iPlanetDirectoryPro",
+								"value": "{{RqPtoken}}",
+								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \n  \"tokenId\": \"{{SSOTokenId}}\" \n}"
-						},
 						"url": {
 							"raw": "{{FQDN-as}}/json/realms/root/sessions?_action=validate",
 							"host": [
@@ -104,8 +110,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Get Resource",
@@ -116,7 +121,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5971aa40-ff4a-4d28-9feb-441f64d56f6e",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"permissionTicket\", jsonData.ticket);",
@@ -126,6 +130,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -136,7 +143,7 @@
 							{
 								"key": "x-frdp-ssotoken",
 								"type": "text",
-								"value": "{{SSOTokenId}}"
+								"value": "{{RqPtoken}}"
 							}
 						],
 						"url": {
@@ -168,7 +175,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9cc72303-52d5-4dc1-8686-afa46ff9c0d0",
 								"exec": [
 									"// get the authorization code from the HTML <INPUT> element",
 									"",
@@ -189,6 +195,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -199,8 +208,8 @@
 								"type": "text"
 							},
 							{
-								"key": "iPlanetDirectoryPro",
-								"value": "{{SSOTokenId}}",
+								"key": "Cookie",
+								"value": "iPlanetDirectoryPro={{RqPtoken}}",
 								"type": "text"
 							}
 						],
@@ -244,7 +253,7 @@
 								},
 								{
 									"key": "csrf",
-									"value": "{{SSOTokenId}}",
+									"value": "{{RqPtoken}}",
 									"type": "text"
 								}
 							]
@@ -268,7 +277,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b8fc919c-5a29-41c3-89cc-e712b365b53f",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"claimToken\", jsonData.id_token);"
@@ -277,6 +285,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -331,7 +342,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b8fc919c-5a29-41c3-89cc-e712b365b53f",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"reqPartyToken\", jsonData.access_token);"
@@ -340,6 +350,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -405,7 +418,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5971aa40-ff4a-4d28-9feb-441f64d56f6e",
 								"exec": [
 									""
 								],
@@ -413,6 +425,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -423,7 +438,7 @@
 							{
 								"key": "x-frdp-ssotoken",
 								"type": "text",
-								"value": "{{SSOTokenId}}"
+								"value": "{{RqPtoken}}"
 							}
 						],
 						"url": {
@@ -449,21 +464,23 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Extra",
 			"item": [
 				{
 					"name": "Shared With Me",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
 								"type": "text",
-								"value": "{{SSOTokenId}}"
+								"value": "{{RqPtoken}}"
 							}
 						],
 						"url": {
@@ -483,12 +500,15 @@
 				},
 				{
 					"name": "Discover Resources",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}",
+								"value": "{{RqPtoken}}",
 								"type": "text"
 							}
 						],
@@ -511,12 +531,15 @@
 				},
 				{
 					"name": "Revoke My Access",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "x-frdp-ssotoken",
-								"value": "{{SSOTokenId}}",
+								"value": "{{RqPtoken}}",
 								"type": "text"
 							}
 						],
@@ -541,11 +564,13 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "well-known",
+			"protocolProfileBehavior": {
+				"disableCookies": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -569,7 +594,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "4168bf23-6308-4b10-8f07-3b652b17d689",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -579,13 +603,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "1beec1bb-b0fe-46d7-b72b-97ca97a814bf",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
