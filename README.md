@@ -16,7 +16,7 @@ The GitHub repositories, [ForgeRock Access Manager](https://www.forgerock.com/pl
 
 ## Video
 
-Watch the [YouTube video](https://www.youtube.com/watch?v=9kPqt5gfI4g) that covers the setup procedures, builds the containers and runs the test use cases.
+Watch the [YouTube video](https://youtu.be/df9hSWMiYvg) that covers the setup procedures, builds the containers and runs the test use cases.
 
 # Disclaimer
 
