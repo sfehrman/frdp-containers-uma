@@ -99,7 +99,7 @@ be18f3fcf73f        uma-db              "docker-entrypoint.s…"   30 seconds ag
 ```
 ## Authorization Server
 
-Log into the Authorization Server as the two test users. Open a web browser and access ... `http://as.example.com/8080/am`
+Log into the Authorization Server as the two test users. Open a web browser and access ... `http://as.example.com:8080/am`
 
 | User | Password | First name | Last name | UMA operations |
 | ---- | -------- | ---------- | --------- | -------------- |
