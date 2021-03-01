@@ -14,11 +14,9 @@ The GitHub repositories, [ForgeRock Access Manager](https://www.forgerock.com/pl
 
 ![overview image](images/containers-uma.png)
 
-`git clone https://github.com/ForgeRock/frdp-containers-uma.git`
-
 ## Video
 
-Watch the [YouTube video](https://www.youtube.com/watch?v=9kPqt5gfI4g) that covers the setup procedures, builds the containers and runs the test use cases.
+Watch the [YouTube video](https://youtu.be/df9hSWMiYvg) that covers the setup procedures, builds the containers and runs the test use cases.
 
 # Disclaimer
 
@@ -34,19 +32,25 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Install [**docker**](https://docs.docker.com/get-started/) on your desktop
 
+## Clone this project
+
+```bash
+git clone https://github.com/ForgeRock/frdp-containers-uma.git
+```
+
 ## ForgeRock Access Manager / Amster
 
-This project uses the ForgeRock Access Manager 6.5.2 which provides User-Manager Access (UMA) Authorization Server functionality. The ForgeRock Amster utility is used to automate the configuration of Access Manager.  Access Manager and Amster can be download from the ForgeRock [backstage](https://backstage.forgerock.com/downloads/browse/am/latest) web site.  
+This project uses the ForgeRock Access Manager 7.0.1 which provides User-Manager Access (UMA) Authorization Server functionality. The ForgeRock Amster utility is used to automate the configuration of Access Manager.  Access Manager and Amster can be download from the ForgeRock [backstage](https://backstage.forgerock.com/downloads/browse/am/latest) web site.  
 
 **NOTICE:** You need an account to access the ForgeRock backstage resources.
 
 1. Download the **Access Manager** zip file and save it to a temporary location.
 1. From the temporary Access Manager location, expanded zip file 
 1. From the temporary Access Manager location ...\
-Copy the `openam/AM-6.5.2.x.war` file to: \
+Copy the `openam/AM-7.0.1.war` file to: \
 `containers/auth-server/docker/build/resources/am.war`
 1. Download the **Amster** zip file and save it to a temporary location.
-1. Copy the `Amster-6.5.2.x.zip` file to: \
+1. Copy the `Amster-7.0.1.zip` file to: \
 `containers/auth-server/docker/build/resources/amster.zip`
 
 # Setup
@@ -95,12 +99,12 @@ be18f3fcf73f        uma-db              "docker-entrypoint.s…"   30 seconds ag
 ```
 ## Authorization Server
 
-Log into the Authorization Server as the two test users. Open a web browser and access ... `http://as.example.com/8080/am`
+Log into the Authorization Server as the two test users. Open a web browser and access ... `http://as.example.com:8080/am`
 
 | User | Password | First name | Last name | UMA operations |
 | ---- | -------- | ---------- | --------- | -------------- |
-| `dcrane` | `password` | Danny | Crane | Resource Owner |
-| `bjensen` | `password` | Barb | Jensen | Requesting Party |
+| `dcrane` | `Uma-1234` | Danny | Crane | Resource Owner |
+| `bjensen` | `Uma-1234` | Barb | Jensen | Requesting Party |
 
 - From the top toolbar
 - Select **SHARES** drop down menu
@@ -121,10 +125,11 @@ See the [Postman folder](/postman) ... which contains an environment file, colle
 
 ## Properties
 
-| Name | Value |
-| ---- | ----- |
-| Domain Name | `example.com` |
-| Default Password | `password` |
+| Name | Value | Reference |
+| ---- | ----- | --------- |
+| Domain Name | `example.com` | |
+| Admin Password | `password` | used by `amadmin` user |
+| OAuth Client Password | `password` | used by `UMA-RS` and `UMA-RqP` clients |
 
 ## Images / Containers
 
