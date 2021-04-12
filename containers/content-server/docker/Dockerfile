@@ -1,4 +1,4 @@
-# Dockerfile : Content Server
+# Dockerfile : Content Server : builds from source files in Git Hub
 
 # Get a container (maven) for compiling source code
 
@@ -8,7 +8,7 @@ FROM maven:3-openjdk-11 AS build
 
 RUN git clone --branch 1.2.0 --progress --verbose https://github.com/ForgeRock/frdp-framework 
 RUN git clone --branch 1.2.0 --progress --verbose https://github.com/ForgeRock/frdp-dao-mongo
-RUN git clone --branch 1.2.0 --progress --verbose https://github.com/ForgeRock/frdp-content-server
+RUN git clone --branch 1.2.1 --progress --verbose https://github.com/ForgeRock/frdp-content-server
 
 # run maven (mvn) to compile jar files and package the war file
 
@@ -35,7 +35,5 @@ COPY --from=build /frdp-content-server/target/content-server /usr/local/tomcat/w
 # Add configuration file to the proper folder
 
 ADD tomcat/webapps/content-server/WEB-INF/config/content-server.json /usr/local/tomcat/webapps/content-server/WEB-INF/config/content-server.json
-
-EXPOSE 8080
 
 CMD ["catalina.sh", "run"]
