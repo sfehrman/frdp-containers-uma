@@ -83,7 +83,7 @@ services:
       - "cs"
     ports:
       - "8090:8080"
-      # - "9000:8000"
+      - "9000:8000"
     hostname: "rs"
     domainname: "example.com"
     networks:
