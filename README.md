@@ -133,12 +133,13 @@ See the [Postman folder](/postman) ... which contains an environment file, colle
 
 ## Images / Containers
 
-| Description | Hostname | Image Name | Container Name | Host Port | Container Port |
-| ----------- | -------- | ----- | --------- | -------- | ---- |
-| Authorization Server | `as`    | `uma-as`    | `uma-as`    | `8080` | `8080`
-| Mongo Database       | `db`    | `uma-db`    | `uma-db`    | `27017` | `27017`
-| Content Server       | `cs`    | `uma-cs`    | `uma-cs`    | `8085` | `8080`
-| Resource Server      | `rs`    | `uma-rs`    | `uma-rs`    | `8090` | `8080`
+| Description                | Hostname | Image Name  | Container Name | Host Port | Container Port 
+| -----------                | ------- | ----------- | ----------- | ----------- | -------
+| Authorization Server       | `as`    | `uma-as`    | `uma-as`    | `8080`  | `8080`
+| Mongo Database             | `db`    | `uma-db`    | `uma-db`    | `27017` | `27017`
+| Content Server             | `cs`    | `uma-cs`    | `uma-cs`    | `8085`  | `8080`
+| Resource Server            | `rs`    | `uma-rs`    | `uma-rs`    | `8090`  | `8080`
+| Resource Server (debugger) | `rs`    | `uma-rs`    | `uma-rs`    | `9000`  | `8000`
 
 ## Services
 
